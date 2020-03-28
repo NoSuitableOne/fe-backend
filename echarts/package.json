@@ -1,0 +1,14 @@
+{
+  "name": "node-canvas",
+  "version": "1.0.0",
+  "description": "node-canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "m@laeni.cn",
+  "license": "ISC",
+  "dependencies": {
+    "node-echarts": "^1.1.4"
+  }
+}
