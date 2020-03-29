@@ -10,8 +10,10 @@
   "author": "MA",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
+    "@koa/router": "^8.0.8",
     "koa": "^2.11.0",
-    "koa-log4": "^2.3.2",
-    "node-echarts-canvas": "^1.2.6"
+    "koa-body": "^4.1.1",
+    "koa-log4": "^2.3.2"
   }
 }
