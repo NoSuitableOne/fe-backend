@@ -4,6 +4,6 @@ const echartsController = require('../../app/controllers/echarts');
 
 const router = new Router();
 
-router.post('/fileBinary', echartsController.getFileBinary);
+router.post('/generate', echartsController.generate);
 
 module.exports = router;

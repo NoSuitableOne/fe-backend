@@ -1,2 +1,4 @@
 /node_modules/
 /echarts/
+/logs/*
+/public/images/*

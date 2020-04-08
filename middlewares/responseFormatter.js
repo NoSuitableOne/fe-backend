@@ -8,8 +8,8 @@ const responseFormatter = (ctx) => {
   if (ctx.body) {
     ctx.body = {
       success: true,
-      message: 'success',
-      data: ctx.body
+      message: ctx.body.message,
+      data: ctx.body.data
     }
   } else {
     ctx.body = {
@@ -30,13 +30,18 @@ const urlFilter = (pattern) => {
       if(error instanceof ApiError && reg.test(ctx.originalUrl)) {
         ctx.status = 200;
         ctx.body = {
-          code: error.code,
+          data: {
+            code: error.code,
+          },
           message: error.message
         }
       }
       // if (error.name === "unknowError") {
-      //   // 继续抛，让外层中间件处理日志
-      //   ctx.throw(500, error.message, ctx.body);
+        if(reg.test(ctx.originalUrl)){
+          responseFormatter(ctx);
+        }
+        // 继续抛，让外层中间件处理日志
+        ctx.throw(500, error.message, ctx.body);
       // }
     }
     // 返回响应体
