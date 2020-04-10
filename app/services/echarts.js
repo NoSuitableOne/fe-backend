@@ -43,5 +43,6 @@ exports.generate = ({ id: filename, option}) => {
     path: `${imagePath}/${filename}.png`, // Path is filepath of the image which will be created.
     enableAutoDispose: true  // Enable auto-dispose echarts after the image is created.
   };
-  echarts(config);
+  console.log(config);
+  // echarts(config);
 }

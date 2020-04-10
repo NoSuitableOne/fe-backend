@@ -21,9 +21,6 @@ app.use(accessLogger());
 // 允许跨域
 app.use(cors());
 
-// 响应格式化
-app.use(responseFormatter('^/api'));
-
 // 参数写入body
 app.use(KoaBody());
 
@@ -33,10 +30,19 @@ app.use(home);
 // logger
 app.use(async (ctx, next) => {
   const start = new Date();
-  await next();
+  try {
+    await next();
+  } catch (error) {
+    const ms = new Date() - start;
+    systemLogger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
+    errorLogger.error('server error', error);
+  }
   const ms = new Date() - start;
   systemLogger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
 })
+
+// 响应格式化
+app.use(responseFormatter('^/api'));
 
 // 服务测试路由
 router.use('/', index.routes(), index.allowedMethods());
