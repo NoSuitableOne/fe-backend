@@ -5,44 +5,41 @@ const echartsConfig = require('../../store/echarts');
 
 const imagePath = path.join('./public/images');
 
+const types = {
+  "bars": "bar",
+  "lines": "line"
+};
+
 exports.generate = ({ id: filename, option}) => {
-  const { type, xData, yData, xName } = option;
+  const { type, xData, yData, xName, yName } = option;
   let echartsOption = echartsConfig[type];
-  if (type === 'line') {
+  if (type === 'bars' || type === 'lines') {
     echartsOption.xAxis.data = xData;
     echartsOption.xAxis.name = xName;
+    echartsOption.yAxis.name = yName;
     yData.map(ele => {
       echartsOption.series.push({
-        type: 'line',
+        type: types[type],
         data: ele
       });
     });
   }
-  if (type === 'bar') {
+  if (type === 'bar' || type === 'line') {
     echartsOption.xAxis.data = xData;
-    yData.map(ele => {
-      echartsOption.series.push({
-        type: 'bar',
-        data: ele
-      });
-    });
-  }
-  if (type === 'multiBar') {
-    echartsOption.xAxis.data = xData;
-    yData.map(ele => {
-      echartsOption.series.push({
-        type: 'bar',
-        data: ele
-      });
+    echartsOption.xAxis.name = xName;
+    echartsOption.yAxis.name = yName;
+    echartsOption.series.push({
+      type: type,
+      data: yData
     });
   }
   config = {
-    width: 2000,
-    height: 2000,
+    width: 800,
+    height: 400,
     option: echartsOption,
     path: `${imagePath}/${filename}.png`, // Path is filepath of the image which will be created.
     enableAutoDispose: true  // Enable auto-dispose echarts after the image is created.
   };
-  console.log(config);
-  // echarts(config);
+  // console.log(JSON.stringify(config));
+  echarts(config);
 }

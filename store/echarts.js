@@ -1,37 +1,68 @@
+const baseConfig = {
+    backgroundColor: '#fff'
+};
+
 const echartsConfig = {
   line: {
-      xAxis: {
-          type: 'category',
-          data: []
-      },
-      yAxis: {
-          type: 'value'
-      },
-      series: []// Echarts configuration, type is Object.
+    ...baseConfig,
+    xAxis: {
+      type: 'category',
+      data: []
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: []
   },
-  bar: {
-      xAxis: {
-          type: 'category',
-          data: []
-      },
-      yAxis: {
-          type: 'value'
-      },
-      series: []// Echarts configuration, type is Object.
-  },
-  multiBar: {
+  lines: {
+    ...baseConfig,
     color: ['#003366', '#006699', '#4cabce', '#e5323e'],
     legend: {
-        data: ['Forest', 'Steppe', 'Desert', 'Wetland']
+      data: []
     },
     xAxis: {
-            type: 'category',
-            data: []
+      type: 'category',
+      data: []
     },
     yAxis: [
-        {
-            type: 'value'
-        }
+      {
+        type: 'value'
+      }
+    ],
+    series: []
+  },
+  bar: {
+    ...baseConfig,
+    xAxis: {
+      type: 'category',
+      axisTick: {
+        alignWithLabel: true
+      },
+      data: []
+    },
+    yAxis: {
+      type: 'value',
+      axisTick: {
+        alignWithLabel: true
+      },
+      data: []
+    },
+    series: []
+  },
+  bars: {
+    ...baseConfig,
+    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+    legend: {
+      data: []
+    },
+    xAxis: {
+      type: 'category',
+      data: []
+    },
+    yAxis: [
+      {
+        type: 'value'
+      }
     ],
     series: []
   }
