@@ -1,5 +1,15 @@
 const baseConfig = {
-    backgroundColor: '#fff'
+  backgroundColor: '#fff',
+  title: {
+    show: false,
+    text: '',
+    subtext: '',
+    left: 'left'
+  },
+  legend: {
+    show: false,
+    top: 'bottom'
+  }
 };
 
 const echartsConfig = {
@@ -7,7 +17,10 @@ const echartsConfig = {
     ...baseConfig,
     xAxis: {
       type: 'category',
-      data: []
+      data: [],
+      axisLabel:{
+    		interval: 0
+    	},
     },
     yAxis: {
       type: 'value',
@@ -22,7 +35,10 @@ const echartsConfig = {
     },
     xAxis: {
       type: 'category',
-      data: []
+      data: [],
+      axisLabel:{
+    		interval: 0
+    	}
     },
     yAxis: [
       {
@@ -38,6 +54,9 @@ const echartsConfig = {
       axisTick: {
         alignWithLabel: true
       },
+      axisLabel:{
+    		interval: 0
+    	},
       data: []
     },
     yAxis: {
@@ -57,7 +76,10 @@ const echartsConfig = {
     },
     xAxis: {
       type: 'category',
-      data: []
+      data: [],
+      axisLabel:{
+    		interval: 0
+    	}
     },
     yAxis: [
       {
