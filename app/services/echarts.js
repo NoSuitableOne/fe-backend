@@ -103,18 +103,23 @@ exports.generate = ({ id: filename, option}) => {
   // 标题
   if (title && title.length) {
     echartsOption.title.show = true;
-    echartsOption.title.text = null;
     echartsOption.title.text = title;
+  } else {
+    echartsOption.title.show = false;
   }
   // x轴名字
   if (xName) {
     echartsOption.xAxis.name = xName;
+  } else {
+    echartsOption.xAxis.name = '';
   }
   // y轴名字
   if (yName) {
     echartsOption.yAxis.name = yName;
     echartsOption.yAxis.nameLocation = 'middle';
     echartsOption.yAxis.nameGap = 40;
+  } else {
+    echartsOption.yAxis.name = '';
   }
   // 图例
   if (label && Array.isArray(label) && label.length) {
