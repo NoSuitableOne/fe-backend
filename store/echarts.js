@@ -9,6 +9,12 @@ const baseConfig = {
   legend: {
     show: false,
     top: 'bottom'
+  },
+  grid: {
+    top: 40,
+    bottom: 40,
+    left: 100,
+    right: 100
   }
 };
 

@@ -9,6 +9,31 @@ const types = {
   "lines": "line"
 };
 
+function formatter (value) {
+  let ret = "";
+  let maxLength = 4;
+  let shortValue = value && value.length ? value.substring(0, 12) : "";
+  let rowNum = value ? Math.ceil(shortValue.length / maxLength) : 1;
+  if (rowNum > 1) {
+    for (let i = 0; i < rowNum; i++) {
+      let temp = "";
+      let start = i * maxLength;
+      let end = start + maxLength;
+      temp =
+        i !== rowNum - 1
+          ? shortValue.substring(start, end) + "\n"
+          : shortValue.substring(start, end);
+      ret += temp;
+    }
+    if (value.length > 12) {
+      ret += "...";
+    }
+    return ret;
+  } else {
+    return value;
+  }
+};
+
 exports.generate = ({ id: filename, option}) => {
   const { type, xData, yData, xName, yName, title, label, custom = {} } = option;
   const { averageLine, showXValue, showMinMax } = custom;
@@ -23,8 +48,8 @@ exports.generate = ({ id: filename, option}) => {
         data: ele
       });
       if (type === 'bars') {
-        echartsOption.series[echartsOption.series.length - 1].barWidth = '10px';
-        echartsOption.series[echartsOption.series.length - 1].barGap ='100%';
+        echartsOption.series[echartsOption.series.length - 1].barWidth = '14px';
+        echartsOption.series[echartsOption.series.length - 1].barGap ='120%';
         if (showXValue) {
           echartsOption.series[echartsOption.series.length - 1].label = {
             show: true, // 开启显示
@@ -48,7 +73,7 @@ exports.generate = ({ id: filename, option}) => {
       data: yData
     });
     if (type === 'bar') {
-      echartsOption.series[echartsOption.series.length - 1].barWidth = '10px';
+      echartsOption.series[echartsOption.series.length - 1].barWidth = '14px';
       if (showMinMax) {
         let max = yData.reduce((num1, num2) => {
           return num1 > num2 ? num1 : num2}
@@ -96,9 +121,6 @@ exports.generate = ({ id: filename, option}) => {
         ]
       }
     }
-    if (showMinMax) {
-
-    }
   }
   // 标题
   if (title && title.length) {
@@ -113,11 +135,16 @@ exports.generate = ({ id: filename, option}) => {
   } else {
     echartsOption.xAxis.name = '';
   }
+  if (xData.length >= 8) {
+    echartsOption.xAxis.axisLabel.formatter = formatter;
+  }
   // y轴名字
-  if (yName) {
-    echartsOption.yAxis.name = yName;
+  if (yName && yName.length) {
+    let yNameStr = yName.split('').join('\n');
+    echartsOption.yAxis.name = yNameStr;
     echartsOption.yAxis.nameLocation = 'middle';
     echartsOption.yAxis.nameGap = 40;
+    echartsOption.yAxis.nameRotate = 0;
   } else {
     echartsOption.yAxis.name = '';
   }
