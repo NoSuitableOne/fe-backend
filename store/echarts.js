@@ -15,7 +15,8 @@ const baseConfig = {
     bottom: 40,
     left: 100,
     right: 100
-  }
+  },
+  color: ["#60acfc", "#32d3eb", "#5bc49f", "#feb64d", "#ff7c7c", "#9287e7"]
 };
 
 const echartsConfig = {
@@ -35,7 +36,6 @@ const echartsConfig = {
   },
   lines: {
     ...baseConfig,
-    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
     legend: {
       data: []
     },
@@ -76,7 +76,6 @@ const echartsConfig = {
   },
   bars: {
     ...baseConfig,
-    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
     legend: {
       data: []
     },

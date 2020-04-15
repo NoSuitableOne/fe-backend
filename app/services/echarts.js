@@ -153,14 +153,18 @@ exports.generate = ({ id: filename, option}) => {
     echartsOption.legend.show = true;
     echartsOption.legend.data = label;
   }
+  let width = 800;
+  if (xData.length && xData.length > 13 ) {
+    width = 60 * xData.length;
+  }
   config = {
-    width: 800,
+    width: width,
     height: 400,
     option: echartsOption,
     path: `${imagePath}/${filename}.png`, // Path is filepath of the image which will be created.
     enableAutoDispose: true  // Enable auto-dispose echarts after the image is created.
   };
 
-  console.log(JSON.stringify(config));
+  // console.log(JSON.stringify(config));
   echarts(config);
 }
