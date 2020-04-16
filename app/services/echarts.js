@@ -11,8 +11,8 @@ const types = {
 
 function formatter (value) {
   let ret = "";
-  let maxLength = 4;
-  let shortValue = value && value.length ? value.substring(0, 12) : "";
+  let maxLength = 5;
+  let shortValue = value && value.length ? value.substring(0, 20) : "";
   let rowNum = value ? Math.ceil(shortValue.length / maxLength) : 1;
   if (rowNum > 1) {
     for (let i = 0; i < rowNum; i++) {
@@ -25,7 +25,7 @@ function formatter (value) {
           : shortValue.substring(start, end);
       ret += temp;
     }
-    if (value.length > 12) {
+    if (value.length > 20) {
       ret += "...";
     }
     return ret;
@@ -137,7 +137,7 @@ exports.generate = ({ id: filename, option}) => {
   } else {
     echartsOption.xAxis.name = '';
   }
-  if (xData.length >= 8) {
+  if (xData.length * echartsOption.series.length >= 8 ) {
     echartsOption.xAxis.axisLabel.formatter = formatter;
   }
   // y轴名字
@@ -169,7 +169,7 @@ exports.generate = ({ id: filename, option}) => {
     echartsOption.legend.show = false;
   }
   let width = 800;
-  let therehold = Math.floor(800/ (60 * echartsOption.series.length));
+  let therehold = Math.floor(800 / (60 * echartsOption.series.length));
   if (xData.length && xData.length > therehold ) {
     width = 60 * echartsOption.series.length * xData.length;
   }
@@ -181,6 +181,6 @@ exports.generate = ({ id: filename, option}) => {
     enableAutoDispose: true  // Enable auto-dispose echarts after the image is created.
   };
 
-  console.log(JSON.stringify(config));
+  // console.log(JSON.stringify(config));
   echarts(config);
 }
