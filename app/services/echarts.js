@@ -43,7 +43,9 @@ exports.generate = ({ id: filename, option}) => {
     echartsOption.series = [];
     yData.map((ele, index) => {
       echartsOption.series.push({
-        name: label? label[index] : `${index}`,
+        name: label? 
+          (Array.isArray(label)? label[index] : label.data[index])
+          : `${index}`,
         type: types[type],
         data: ele
       });
@@ -74,7 +76,7 @@ exports.generate = ({ id: filename, option}) => {
     });
     if (type === 'bar') {
       echartsOption.series[echartsOption.series.length - 1].barWidth = '14px';
-      if (showMinMax) {
+      if (showMinMax && yData.length) {
         let max = yData.reduce((num1, num2) => {
           return num1 > num2 ? num1 : num2}
         );
@@ -149,22 +151,36 @@ exports.generate = ({ id: filename, option}) => {
     echartsOption.yAxis.name = '';
   }
   // 图例
-  if (label && Array.isArray(label) && label.length) {
-    echartsOption.legend.show = true;
-    echartsOption.legend.data = label;
+  if (label) {
+    if (Array.isArray(label) && label.length) {
+      echartsOption.legend.show = true;
+      echartsOption.legend.data = label;
+      echartsOption.legend.top = 'bottom';
+    }
+    if (label.data && label.data.length) {
+      echartsOption.legend.show = true;
+      echartsOption.legend.data = label.data;
+      if (label.position === 'top') {
+        echartsOption.legend.top = 0;
+        echartsOption.legend.right = 20;
+      }
+    }
+  } else {
+    echartsOption.legend.show = false;
   }
   let width = 800;
-  if (xData.length && xData.length > 13 ) {
-    width = 60 * xData.length;
+  let therehold = Math.floor(800/ (60 * echartsOption.series.length));
+  if (xData.length && xData.length > therehold ) {
+    width = 60 * echartsOption.series.length * xData.length;
   }
   config = {
     width: width,
-    height: 400,
+    height: 450,
     option: echartsOption,
     path: `${imagePath}/${filename}.png`, // Path is filepath of the image which will be created.
     enableAutoDispose: true  // Enable auto-dispose echarts after the image is created.
   };
 
-  // console.log(JSON.stringify(config));
+  console.log(JSON.stringify(config));
   echarts(config);
 }

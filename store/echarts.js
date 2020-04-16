@@ -7,12 +7,11 @@ const baseConfig = {
     left: 'left'
   },
   legend: {
-    show: false,
-    top: 'bottom'
+    show: false
   },
   grid: {
     top: 40,
-    bottom: 40,
+    bottom: 80,
     left: 100,
     right: 100
   },
